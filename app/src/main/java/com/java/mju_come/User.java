@@ -1,9 +1,5 @@
 package com.java.mju_come;
 
-/**
- * Created by 김세희 on 2017-11-18.
- */
-
 public class User {
 
     private int id;

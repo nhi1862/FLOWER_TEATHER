@@ -1,15 +1,23 @@
 package com.java.mju_come;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private AppCompatButton appCompatButtonRegister;
     private AppCompatTextView appCompatTextViewLoginLink;
+    private FirebaseAuth firebaseAuth;
 
     private InputValidation inputValidation;
     private DBHelper dbHelper;
@@ -42,12 +51,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         initViews();
         initListeners();
-        initObjects();
     }
 
-    /**
-     * This method is to initialize views
-     */
+
     private void initViews() {
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
 
@@ -65,96 +71,41 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         appCompatTextViewLoginLink = (AppCompatTextView) findViewById(R.id.appCompatTextViewLoginLink);
 
+        firebaseAuth =FirebaseAuth.getInstance();
+
     }
 
-    /**
-     * This method is to initialize listeners
-     */
     private void initListeners() {
         appCompatButtonRegister.setOnClickListener(this);
         appCompatTextViewLoginLink.setOnClickListener(this);
 
     }
 
-    /**
-     * This method is to initialize objects to be used
-     */
-    private void initObjects() {
-        inputValidation = new InputValidation(activity);
-        dbHelper = new DBHelper(activity);
-        user = new User();
-
+    public void btnRegister(){
+        final ProgressDialog progressDialog =ProgressDialog.show(this, "Please wait...","Processing...", true);
+        (firebaseAuth.createUserWithEmailAndPassword(textInputEditTextEmail.getText().toString(), textInputEditTextPassword.getText().toString()))
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        if(task.isSuccessful()){
+                            Intent intent =new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        }else{
+                        }
+                    }
+                });
     }
 
-
-    /**
-     * This implemented method is to listen the click on view
-     *
-     * @param v
-     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.appCompatButtonRegister:
-                postDataToSQLite();
+                btnRegister();
                 break;
-
             case R.id.appCompatTextViewLoginLink:
                 finish();
                 break;
         }
-    }
-
-    /**
-     * This method is to validate the input text fields and post data to SQLite
-     */
-    private void postDataToSQLite() {
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_password))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextMatches(textInputEditTextPassword, textInputEditTextConfirmPassword,
-                textInputLayoutConfirmPassword, getString(R.string.error_password_match))) {
-            return;
-        }
-
-        if (!dbHelper.checkUser(textInputEditTextEmail.getText().toString().trim())) {
-
-            user.setName(textInputEditTextName.getText().toString().trim());
-            user.setEmail(textInputEditTextEmail.getText().toString().trim());
-            user.setPassword(textInputEditTextPassword.getText().toString().trim());
-
-            dbHelper.addUser(user);
-
-            // Snack Bar to show success message that record saved successfully
-            Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show();
-            emptyInputEditText();
-
-
-        } else {
-            // Snack Bar to show error message that record already exists
-            Snackbar.make(nestedScrollView, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG).show();
-        }
-
-
-    }
-
-    /**
-     * This method is to empty all input edit text
-     */
-    private void emptyInputEditText() {
-        textInputEditTextName.setText(null);
-        textInputEditTextEmail.setText(null);
-        textInputEditTextPassword.setText(null);
-        textInputEditTextConfirmPassword.setText(null);
     }
 }

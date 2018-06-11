@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#4384c1"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="제목"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:background="#4D233f7a"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/lovelist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="10dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#99b3cc"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:text="위치"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:background="#4D3771a8"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/lovelist_location"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+
+
+            />
+
+    </LinearLayout>
+
+    <TextView
+
+        android:id="@+id/lovelist_textView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textColor="#000000"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="10dp"/>
+
+
+</LinearLayout>

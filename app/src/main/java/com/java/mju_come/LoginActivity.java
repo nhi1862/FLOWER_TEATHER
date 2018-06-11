@@ -1,15 +1,42 @@
 package com.java.mju_come;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthProvider;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private final AppCompatActivity activity = LoginActivity.this;
@@ -25,24 +52,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private AppCompatButton appCompatButtonLogin;
 
     private AppCompatTextView textViewLinkRegister;
+    private FirebaseAuth firebaseAuth;
 
     private InputValidation inputValidation;
     private DBHelper dbHelper;
+
+    private CallbackManager callbackManager;
+    private LoginButton facebookloginbutton;
+    private AccessToken accessToken;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
-
+        callbackManager = CallbackManager.Factory.create();
         initViews();
         initListeners();
-        initObjects();
     }
 
-    /**
-     * This method is to initialize views
-     */
     private void initViews() {
 
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
@@ -54,80 +84,88 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textInputEditTextPassword = (TextInputEditText) findViewById(R.id.textInputEditTextPassword);
 
         appCompatButtonLogin = (AppCompatButton) findViewById(R.id.appCompatButtonLogin);
-
+        facebookloginbutton = (LoginButton)findViewById(R.id.facebook_login_button);
         textViewLinkRegister = (AppCompatTextView) findViewById(R.id.textViewLinkRegister);
+
+        firebaseAuth =FirebaseAuth.getInstance();
 
     }
 
-    /**
-     * This method is to initialize listeners
-     */
     private void initListeners() {
         appCompatButtonLogin.setOnClickListener(this);
         textViewLinkRegister.setOnClickListener(this);
+        facebookloginbutton.setOnClickListener(this);
     }
 
-    /**
-     * This method is to initialize objects to be used
-     */
     private void initObjects() {
         dbHelper = new DBHelper(activity);
         inputValidation = new InputValidation(activity);
 
     }
 
-    /**
-     * This implemented method is to listen the click on view
-     *
-     * @param v
-     */
+    public void btnUserLogin(){
+        final ProgressDialog progressDialog =ProgressDialog.show(this, "Please wait...","Processing...", true);
+        (firebaseAuth.signInWithEmailAndPassword(textInputEditTextEmail.getText().toString(), textInputEditTextPassword.getText().toString()))
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+
+                        if(task.isSuccessful()){
+                            //move to mainactivity
+                            Intent intent =new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        }else{
+                        }
+                    }
+                });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.appCompatButtonLogin:
-                verifyFromSQLite();
+                //login
+                btnUserLogin();
                 break;
             case R.id.textViewLinkRegister:
                 // Navigate to RegisterActivity
-                Intent intentRegister = new Intent(getApplicationContext(), RegisterActivity.class);
+                Intent intentRegister = new Intent(getApplicationContext(), SelectLoginActivity.class);
                 startActivity(intentRegister);
                 break;
+            case R.id.facebook_login_button:
+                LoginFacebook();
+
         }
     }
 
-    /**
-     * This method is to validate the input text fields and verify login credentials from SQLite
-     */
-    private void verifyFromSQLite() {
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
+
+    private void LoginFacebook() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        FirebaseUser currentuser = firebaseAuth.getCurrentUser();
+        if (currentuser != null) {
         }
-        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_email))) {
-            return;
-        }
+        facebookloginbutton.setReadPermissions("email", "public_profile");
+        facebookloginbutton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                accessToken = loginResult.getAccessToken();
+                Intent intent =new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
 
-        if (dbHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
-                , textInputEditTextPassword.getText().toString().trim())) {
+            @Override
+            public void onCancel() {
+            }
 
-
-            Intent accountsIntent = new Intent(activity, MainActivity.class);
-            startActivity(accountsIntent);
-
-
-        } else {
-            // Snack Bar to show success message that record is wrong
-            Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show();
-        }
+            @Override
+            public void onError(FacebookException error) {
+            }
+        });
     }
 
-    /**
-     * This method is to empty all input edit text
-     */
-    private void emptyInputEditText() {
-        textInputEditTextEmail.setText(null);
-        textInputEditTextPassword.setText(null);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 }

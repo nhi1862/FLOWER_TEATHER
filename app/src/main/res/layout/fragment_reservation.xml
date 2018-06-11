@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE7E7">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="location.json"
+        app:lottie_loop="true"
+        android:id="@+id/location_lottieAnimationView"
+        android:layout_marginBottom="18dp"
+        android:layout_above="@+id/shop_search_btn"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/shop_search_btn"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/love_border"
+        android:text="내 주변 꽃집찾기"
+        android:drawableLeft="@drawable/shop_flower"
+        android:paddingLeft="30dp"
+        android:textSize="20sp"
+        android:layout_marginBottom="175dp"
+        android:textColor="#FFFFFF"
+        android:drawablePadding="85dp"
+        android:gravity="left|center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        />
+
+
+
+
+</RelativeLayout>

@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">MJU_COME</string>
-    <string name="selection_home">home</string>
-    <string name="selection_lost">lost property</string>
-    <string name="selection_love">love</string>
-    <string name="selection_memory">memory</string>
-    <string name="selection_setting">setting</string>
+    <string name="app_name">FlowerTeacher</string>
+    <string name="selection_search">검색</string>
+    <string name="selection_reservation">예약</string>
+    <string name="selection_mypage">마이 페이지</string>
+    <string name="selection_setting">설정</string>
 
     <string name="text_accounts">All Accounts</string>
     <string name="hint_name">Name</string>
@@ -18,7 +17,7 @@
     <string name="error_message_age">Enter Age</string>
     <string name="error_message_password">Enter Password</string>
     <string name="success_message">Registration Successful</string>
-    <string name="text_not_member">No account yet? Create one</string>
+    <string name="text_not_member">가입하기</string>
     <string name="text_already_member">Already a member? Login</string>
     <string name="error_email_exists">Email Already Exists</string>
     <string name="error_password_match">Password Does Not Matches</string>
@@ -26,4 +25,24 @@
     <string name="action_settings">Settings</string>
     <string name="text_hello">Hello,</string>
     <string name="text_title">Android Tutorials Hub</string>
+
+    <string name="facebook_app_id">158344678230137</string>
+    <string name="fb_login_protocol_scheme">fb158344678230137</string>
+
+    <string name="google_maps_api_key">AIzaSyC_V-rUxDsZF3rvNFCQW6pffgltrIcnKR8</string>
+    <string-array name="search_category">
+        <item name="0"> </item>
+        <item name="1">개나리</item>
+        <item name="2">동백</item>
+        <item name="3">목화</item>
+        <item name="4">백합</item>
+        <item name="5">장미</item>
+        <item name="6">나팔꽃</item>
+        <item name="7">동자꽃</item>
+        <item name="8">데이지</item>
+    </string-array>
+    <string name="title_activity_check_map">Map</string>
+    <string name="title_activity_maps_activitiy">Map</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="naver_api">kmOkvABGk5qv0Zod1Yey</string>
 </resources>

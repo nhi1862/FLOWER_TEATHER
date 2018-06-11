@@ -6,27 +6,22 @@
         android:id="@+id/action_home"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/ic_home_white_24dp"
-        android:title="@string/selection_home" />
-    <item
-        android:id="@+id/action_lost"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/ic_new_releases_white_24dp"
-        android:title="@string/selection_lost" />
-    <item
-        android:id="@+id/action_love"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/ic_favorite_white_24dp"
-        android:title="@string/selection_love" />
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/selection_search" />
 
     <item
-        android:id="@+id/action_memory"
+        android:id="@+id/action_reservation"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/ic_photo_library_white_24dp"
-        android:title="@string/selection_memory" />
+        android:icon="@drawable/ic_reservation_black_24dp"
+        android:title="@string/selection_reservation" />
+
+    <item
+        android:id="@+id/action_mypage"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_mypage_black_24dp"
+        android:title="@string/selection_mypage" />
 
     <item
         android:id="@+id/action_setting"
