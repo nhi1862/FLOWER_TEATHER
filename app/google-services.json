@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "554928827033",
+    "firebase_url": "https://mjucome-21a2b.firebaseio.com",
+    "project_id": "mjucome-21a2b",
+    "storage_bucket": "mjucome-21a2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554928827033:android:f23b14b74af24b71",
+        "android_client_info": {
+          "package_name": "com.java.mju_come"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554928827033-1i5bgituu31614a0r4upk2tn9vkf1pca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.java.mju_come",
+            "certificate_hash": "685f004e6376dd3995d023c637e332f2942d19a6"
+          }
+        },
+        {
+          "client_id": "554928827033-atni3967qja7iqegmrhvhc7dc51rvled.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfI9aC5FsDrpqw4rqkaza_scmQKXHKwMo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554928827033-atni3967qja7iqegmrhvhc7dc51rvled.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

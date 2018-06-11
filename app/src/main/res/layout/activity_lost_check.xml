@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.java.mju_come.lost.Check.LostCheckActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#4384c1"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="제목"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:background="#4D233f7a"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/lostCheck_title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="10dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#99b3cc"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="카테고리"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:background="#4D3771a8"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/lostCheck_category"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#99b3cc"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:text="위치"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:background="#4D3771a8"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/lostCheck_location"
+            android:onClick="toMap"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lostCheck_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="10dp"/>
+
+    <ImageView
+        android:id="@+id/lostCheck_imageView"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
